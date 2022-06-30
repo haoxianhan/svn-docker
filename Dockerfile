@@ -8,6 +8,8 @@ FROM smebberson/alpine-base:3.2.0
 	# Create the authentication file for http access
 	# Getting SVNADMIN interface
 RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
+	apk add --no-cache bash &&\
+	apk add --no-cache vim &&\
 	apk add --no-cache subversion &&\
 	apk add --no-cache wget unzip php7 php7-apache2 php7-session php7-json php7-ldap &&\
 	apk add --no-cache php7-xml &&\	
@@ -21,9 +23,11 @@ RUN apk add --no-cache apache2 apache2-utils apache2-webdav mod_dav_svn &&\
 	rm stable-1.6.2.zip &&\
 	mv /opt/iF.SVNAdmin-stable-1.6.2 /opt/svnadmin &&\
 	ln -s /opt/svnadmin /var/www/localhost/htdocs/svnadmin &&\
+	ln -sf /bin/bash /bin/sh &&\
+	ln -sf /bin/vim /bin/vi &&\
 	chmod -R 777 /opt/svnadmin/data
 
-# Solve a security issue (https://alpinelinux.org/posts/Docker-image-vulnerability-CVE-2019-5021.html)	
+# Solve a security issue (https://alpinelinux.org/posts/Docker-image-vulnerability-CVE-2019-5021.html)
 RUN sed -i -e 's/^root::/root:!:/' /etc/shadow
 
 # Fixing https://github.com/mfreiholz/iF.SVNAdmin/issues/118
