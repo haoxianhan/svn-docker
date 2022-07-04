@@ -17,9 +17,12 @@ services:
 volumes:
   svn_repo:
     name: ${CONTAINER_NAME}-svn_repo
+    external: true
 
   svn_config:
     name: ${CONTAINER_NAME}-svn_config
+    external: true
 
   svnadmin_config:
     name: ${CONTAINER_NAME}-svnadmin_config
+    external: true
